@@ -1,0 +1,17 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "delivery group general"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		dg : DeliveryGroup( group == "General" , fixedCost == null )
+	then
+		modify( dg ) {
+				setFixedCost( 1.0 ), 
+				setFactor( 1.0 )
+		}
+end

@@ -1,0 +1,21 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "Riyadh to Dammam"
+	dialect "mvel"
+	salience 700
+	ruleflow-group "gogo"
+	no-loop true
+	when
+		ShipfromCity( sfCity == "Riyadh" )
+		ShipToCity( stCity == "Dammam" )
+		v : VendorWorkingDays( kgfactor == null )
+	then
+		modify( v ) {
+				setKgfactor( 0.5 ), 
+				setFixedcost( 55.0 ), 
+				setKmfactor( 0.0 ), 
+				setLeadtime( 1.0 )
+		}
+end

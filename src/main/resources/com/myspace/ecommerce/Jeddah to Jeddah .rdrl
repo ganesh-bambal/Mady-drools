@@ -1,0 +1,21 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "Jeddah to Jeddah "
+	dialect "mvel"
+	salience 700
+	ruleflow-group "gogo"
+	no-loop true
+	when
+		ShipfromCity( sfCity == "Jeddah" )
+		ShipToCity( stCity == "Jeddah" )
+		v : VendorWorkingDays( kgfactor == null )
+	then
+		modify( v ) {
+				setKgfactor( 0.8 ), 
+				setFixedcost( 80.0 ), 
+				setKmfactor( 0.0 ), 
+				setLeadtime( 0.0 )
+		}
+end

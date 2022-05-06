@@ -1,0 +1,18 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "delivery group CarWash"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		dg : DeliveryGroup( group == "CarWash" , fixedCost == null )
+	then
+		modify( dg ) {
+				setFixedCost( 0.0 ), 
+				setFactor( 1.0 )
+		}
+		System.out.println("in delivery group for CarWash");
+end

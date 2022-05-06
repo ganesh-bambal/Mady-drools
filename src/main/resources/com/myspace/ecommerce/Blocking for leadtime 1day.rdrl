@@ -1,0 +1,26 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "Blocking for leadtime 1day"
+	dialect "mvel"
+	salience 147
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		v : VendorWorkingDays( leadtime == 1.0 )
+		f : Flagging( )
+	then
+		modify( f ) {
+				setFlagToday( false ), 
+				setFlagTodayOne( true ), 
+				setFlagTodayTwo( true ), 
+				setFlagTodayThree( true ), 
+				setFlagTodayFour( true ), 
+				setFlagTodayFive( true ), 
+				setFlagTodaySix( true )
+		}
+		modify( v ) {
+				setLeadtime( 0.0 )
+		}
+end

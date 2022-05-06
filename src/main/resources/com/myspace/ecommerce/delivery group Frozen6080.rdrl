@@ -1,0 +1,18 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "delivery group Frozen6080"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		dg : DeliveryGroup( group == "Frozen6080" , fixedCost == null )
+	then
+		modify( dg ) {
+				setFixedCost( 10.0 ), 
+				setFactor( 2.0 )
+		}
+		System.out.println("in delivery group for Frozen6080");
+end

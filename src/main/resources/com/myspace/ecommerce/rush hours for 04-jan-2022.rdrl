@@ -1,0 +1,16 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "rush hours for 04-jan-2022"
+	dialect "mvel"
+	salience 1000
+	ruleflow-group "gogo"
+	no-loop true
+	when
+		rush : RushHours( date == "05-may-2022" && cost == 0.0 , time == 17 )
+	then
+		modify( rush ) {
+				setCost( 1.1 )
+		}
+end

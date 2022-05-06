@@ -1,0 +1,19 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "Today+1 evening when today slots are available"
+	dialect "mvel"
+	salience 127
+	ruleflow-group "gogo"
+	no-loop true
+	when
+		v : VendorWorkingDays( eval( vendorWD contains(java.time.LocalDate.now().plusDays(1).getDayOfWeek().toString()) )&& eval( closeTime.isAfter(java.time.LocalTime.parse("14:00:01")) )&& eval( openTime.isAfter(java.time.LocalTime.parse("14:00:01")) )&& todayFlag == true && todayOneFlag == false )
+		Flagging( flagTodayOne == true )
+	then
+		modify( v ) {
+				setTodayOneM( "NA" ), 
+				setTodayOneE( "Available" ), 
+				setTodayOneFlag( true )
+		}
+end

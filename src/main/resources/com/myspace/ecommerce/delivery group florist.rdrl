@@ -1,0 +1,18 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "delivery group florist"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		dg : DeliveryGroup( fixedCost == null , group == "Florist" || group == "Perishables" )
+	then
+		modify( dg ) {
+				setFixedCost( 10.0 ), 
+				setFactor( 1.0 )
+		}
+		System.out.println("in delivery group for Florist/Perishables");
+end

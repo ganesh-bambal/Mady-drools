@@ -1,0 +1,18 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "delivery group HomeCleaning"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		dg : DeliveryGroup( group == "HomeCleaning" , fixedCost == null )
+	then
+		modify( dg ) {
+				setFixedCost( 0.0 ), 
+				setFactor( 0.0 )
+		}
+		System.out.println("in delivery group for HomeCleaning");
+end

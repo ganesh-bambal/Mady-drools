@@ -1,0 +1,15 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "Sweight"
+	dialect "mvel"
+	lock-on-active false
+	ruleflow-group "gogo"
+	when
+		v : VendorWorkingDays( sWeight == 0.0 , h : sumh != null , suma != null , l : suml != null , w : sumw != null , suma < ( (suml*sumh*sumw)/6000 ) )
+	then
+		modify( v ) {
+				setsWeight( (l*h*w)/6000 )
+		}
+end

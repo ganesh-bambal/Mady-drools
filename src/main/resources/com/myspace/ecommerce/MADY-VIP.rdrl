@@ -1,0 +1,17 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "MADY-VIP"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		dg : DeliveryGroup( fixedCost == null , group == "MADY-VIP" )
+	then
+		modify( dg ) {
+				setFixedCost( 0.0 ), 
+				setFactor( 1.0 )
+		}
+end

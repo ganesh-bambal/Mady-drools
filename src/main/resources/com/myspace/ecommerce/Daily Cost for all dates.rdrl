@@ -1,0 +1,16 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "Daily Cost for all dates"
+	dialect "mvel"
+	salience 1000
+	no-loop true
+	ruleflow-group "gogo"
+	when
+		d : DailyCost( date != "01-jan-2022" , dailyCost == null )
+	then
+		modify( d ) {
+				setDailyCost( 1.00 )
+		}
+end

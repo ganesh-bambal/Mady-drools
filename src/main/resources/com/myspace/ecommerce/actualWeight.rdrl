@@ -1,0 +1,15 @@
+package com.myspace.ecommerce;
+
+import java.lang.Number;
+
+rule "actualWeight"
+	dialect "mvel"
+	ruleflow-group "gogo"
+	no-loop true
+	when
+		v : VendorWorkingDays( sWeight == 0.0 , a : suma >= ( (suml*sumh*sumw)/6000 ) )
+	then
+		modify( v ) {
+				setsWeight( a )
+		}
+end
